@@ -12,7 +12,6 @@ namespace FineSpiritsStore.Models
             : base(options) { }
 
         public DbSet<Product> Products { get; set; }
-        public DbSet<Blog> Blogs { get; set; }
     }
 
     public class ApplicationDbContextFactory

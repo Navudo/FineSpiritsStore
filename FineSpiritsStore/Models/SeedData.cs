@@ -188,28 +188,6 @@ namespace FineSpiritsStore.Models
                 );
                 context.SaveChanges();
             }
-
-
-            if (!context.Blogs.Any())
-            {
-                context.Blogs.AddRange(
-
-         new Blog
-         {
-             BlogTitle = "First Blog Post",
-             BlogBody = "This is where I write stuff for the blog body. Do you like it cause I like it,I think its cool.",
-             BlogCategory = "Alcohol"
-         },
-                 
-                    new Blog
-                    {
-                        BlogTitle = "Second Blog Post",
-                        BlogBody = "This is where I write other stuff for the blog body. Do you like it cause I like it,I think its cool.",
-                        BlogCategory = "Other Stuff"
-                    }
-                );
-                context.SaveChanges();
-            }
         }
     }
 }
