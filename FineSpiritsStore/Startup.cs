@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using FineSpiritsStore.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace FineSpiritsStore
 {
@@ -23,10 +24,23 @@ namespace FineSpiritsStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration["Data:SportStoreProducts:ConnectionString"]));
+
+
+      
+
+            services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(Configuration["Data:FineSpiritStoreProducts:ConnectionString"]));
+
+
+            services.AddDbContext<AppIdentityDbContext>(options =>options.UseSqlServer(Configuration["Data:FineSpiritStoreIdentity:ConnectionString"]));
+            services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<AppIdentityDbContext>()
+            .AddDefaultTokenProviders();
+
+
+
+
             services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddTransient<IBlogRepository, EFBlogRepository>();
             services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IOrderRepository, EFOrderRepository>();
@@ -37,10 +51,22 @@ namespace FineSpiritsStore
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
-            app.UseStatusCodePages();
+           app.UseDeveloperExceptionPage();
+           app.UseStatusCodePages();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
+
             app.UseStaticFiles();
             app.UseSession();
+            app.UseAuthentication();
             app.UseMvc(routes => {
                 routes.MapRoute(
                     name: null,
@@ -67,7 +93,8 @@ namespace FineSpiritsStore
 
                 routes.MapRoute(name: null, template: "{controller}/{action}/{id?}");
             });
-            SeedData.EnsurePopulated(app);
+            //SeedData.EnsurePopulated(app);
+            //IdentitySeedData.EnsurePopulated(app);
         }
     }
 }

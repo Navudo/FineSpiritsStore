@@ -17,8 +17,24 @@ namespace FineSpiritsStore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("FineSpiritsStore.Models.Blog", b =>
+                {
+                    b.Property<int>("BlogID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("BlogBody");
+
+                    b.Property<string>("BlogCategory");
+
+                    b.Property<string>("BlogTitle");
+
+                    b.HasKey("BlogID");
+
+                    b.ToTable("Blogs");
+                });
 
             modelBuilder.Entity("FineSpiritsStore.Models.CartLine", b =>
                 {
@@ -63,6 +79,8 @@ namespace FineSpiritsStore.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<bool>("Shipped");
+
                     b.Property<string>("State")
                         .IsRequired();
 
@@ -80,13 +98,16 @@ namespace FineSpiritsStore.Migrations
 
                     b.Property<string>("Brand");
 
-                    b.Property<string>("Category");
+                    b.Property<string>("Category")
+                        .IsRequired();
 
                     b.Property<string>("Country");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<decimal>("Price");
 

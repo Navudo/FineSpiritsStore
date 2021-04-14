@@ -12,10 +12,12 @@ namespace FineSpiritsStore.Models
             : base(options) { }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
         public DbSet<Order> Orders { get; set; }
 
     }
 
+    
     public class ApplicationDbContextFactory
             : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
@@ -24,4 +26,5 @@ namespace FineSpiritsStore.Models
             Program.BuildWebHost(args).Services
                 .GetRequiredService<ApplicationDbContext>();
     }
+    
 }

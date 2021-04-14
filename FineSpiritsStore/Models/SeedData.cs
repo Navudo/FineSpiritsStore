@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace FineSpiritsStore.Models
 {
@@ -9,17 +10,21 @@ namespace FineSpiritsStore.Models
     public static class SeedData
     {
 
-        public static void EnsurePopulated(IApplicationBuilder app)
+        public static void EnsurePopulated(IServiceProvider services)
         {
-            ApplicationDbContext context = app.ApplicationServices
-                .GetRequiredService<ApplicationDbContext>();
-            context.Database.Migrate();
+            ApplicationDbContext context =
+            services.GetRequiredService<ApplicationDbContext>();
+            //context.Database.Migrate();
             if (!context.Products.Any())
             {
                 context.Products.AddRange(
+                    //testing change on website
+                    //testing change on Visual studio /
+                    //testing changes on visual studio 2/
    
-         new Product
+                    new Product
                     {
+                        //testing
                         Name = "Bombay Sapphire London Dry",
                         Category = "Gin",
                         Price = 21.99m,
@@ -188,6 +193,33 @@ namespace FineSpiritsStore.Models
                 );
                 context.SaveChanges();
             }
+
+
+            if (!context.Blogs.Any())
+            {
+                context.Blogs.AddRange(
+
+         new Blog
+         {
+             BlogTitle = "First Blog Post",
+             BlogBody = "This is where I write stuff for the blog body. Do you like it cause I like it,I think its cool.",
+             BlogCategory = "Alcohol"
+         },
+                 
+                    new Blog
+                    {
+                        BlogTitle = "Second Blog Post",
+                        BlogBody = "This is where I write other stuff for the blog body. Do you like it cause I like it,I think its cool.",
+                        BlogCategory = "Other Stuff"
+                    }
+                );
+                context.SaveChanges();
+            }
+          
+            
         }
+          
+            
     }
+
 }

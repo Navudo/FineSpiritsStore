@@ -1,0 +1,44 @@
+﻿@model FineSpiritsStore.Models.Blog
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Blog</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BlogID" />
+            <div class="form-group">
+                <label asp-for="BlogTitle" class="control-label"></label>
+                <input asp-for="BlogTitle" class="form-control" />
+                <span asp-validation-for="BlogTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BlogCategory" class="control-label"></label>
+                <input asp-for="BlogCategory" class="form-control" />
+                <span asp-validation-for="BlogCategory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BlogBody" class="control-label"></label>
+                <textarea asp-for="BlogBody" rows="4" cols="50"> </textarea>
+                <span asp-validation-for="BlogBody" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn text-white" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn text-white" asp-action="Index">Back to List </a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

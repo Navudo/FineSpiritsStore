@@ -1,39 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using FineSpiritsStore.Models;
-using FineSpiritsStore.Models.ViewModels;
 using System.Linq;
-
+using FineSpiritsStore.Models.ViewModels;
 namespace FineSpiritsStore.Controllers
 {
     public class ProductController : Controller
     {
         private IProductRepository repository;
-        public int PageSize = 3;
-
+        public int PageSize = 4;
         public ProductController(IProductRepository repo)
         {
             repository = repo;
         }
-        public ViewResult List(string category, int productPage = 1)        
-            => View(new ProductsListViewModel
-            {
-                Products = repository.Products
-                    .Where(p => category == null || p.Category == category)
-                    .OrderBy(p => p.Category)
-                    .Skip((productPage - 1) * PageSize)
-                    .Take(PageSize),
-                PagingInfo = new PagingInfo
-                {
-                    CurrentPage = productPage,
-                    ItemsPerPage = PageSize,
-                    TotalItems = category == null ?
-                        repository.Products.Count() :
-                        repository.Products.Where(e =>
-                            e.Category == category).Count()
+        public ViewResult List(string category, int productPage = 1)
+        => View(new ProductsListViewModel
+        {
+            Products = repository.Products
+        .Where(p => category == null || p.Category == category)
+        .OrderBy(p => p.ProductID)
+        .Skip((productPage - 1) * PageSize)
+        .Take(PageSize),
 
-                },
-                CurrentCategory = category
-
-            });
+       
+        PagingInfo = new PagingInfo
+        {
+            CurrentPage = productPage,
+            ItemsPerPage = PageSize,
+            TotalItems = category == null ?
+        repository.Products.Count() :
+       repository.Products.Where(e =>
+        e.Category == category).Count()
+        },
+            CurrentCategory = category
+        });
     }
 }

@@ -4,8 +4,9 @@
    asp-action="List"
    asp-controller="Product"
    asp-route-category="">
-    Home
+   Browse 
 </a>
+
 
 @foreach (string category in Model) {
     <a class="btn btn-block
@@ -17,3 +18,5 @@
         @category
     </a>
 }
+
+
